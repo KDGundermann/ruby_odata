@@ -473,8 +473,11 @@ class Service
     klass.send :__metadata=, { :uri => meta_id }
 
     # Fill etag
-    etag = entry.respond_to?(:attributes) && entry.attributes["etag"] && entry.attributes["etag"].value
-    klass.send :__etag=, etag
+    if entry.respond_to?(:attributes)
+      if entry.attributes["etag"]
+        klass.send :__etag=, entry.attributes["etag"].value
+      end
+    end
 
     # Fill properties
     for prop in properties
@@ -567,7 +570,7 @@ class Service
   end
   def build_update_uri(operation)
     uri = operation.klass.send(:__metadata)[:uri].dup
-    uri << "&#{@additional_params.to_query}" unless @additional_params.empty?
+    uri << "?#{@additional_params.to_query}" unless @additional_params.empty?
     uri
   end
   def build_add_link_uri(operation)
@@ -636,7 +639,7 @@ class Service
     elsif operation.kind == "Update"
       update_uri = build_update_uri(operation)
       json_klass = operation.klass.to_json
-      header["If-Match"] = operation.klass.__etag if operation.klass.respond_to?(:__etag)
+      header["If-Match"] = operation.klass.__etag unless operation.klass.__etag.nil?
       update_result = OData::Resource.new(update_uri, @rest_options).put json_klass, header
       return (update_result.status == 204)
     elsif operation.kind == "Delete"
