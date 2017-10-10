@@ -472,6 +472,10 @@ class Service
     meta_id = entry.xpath("./atom:id", @ds_namespaces)[0].content
     klass.send :__metadata=, { :uri => meta_id }
 
+    # Fill etag
+    etag = entry.respond_to?(:attributes) && entry.attributes["etag"] && entry.attributes["etag"].value
+    klass.send :__etag=, etag
+
     # Fill properties
     for prop in properties
       prop_name = prop.name
