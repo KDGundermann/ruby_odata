@@ -565,6 +565,11 @@ class Service
     uri << "?#{@additional_params.to_query}" unless @additional_params.empty?
     uri
   end
+  def build_update_uri(operation)
+    uri = operation.klass.send(:__metadata)[:uri].dup
+    uri << "&#{@additional_params.to_query}" unless @additional_params.empty?
+    uri
+  end
   def build_add_link_uri(operation)
     uri = operation.klass.send(:__metadata)[:uri].dup
     uri << "/$links/#{operation.klass_name}"
