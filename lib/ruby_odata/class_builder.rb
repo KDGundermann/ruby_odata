@@ -85,6 +85,14 @@ module OData
       klass.send :define_method, :__metadata= do |value|
         instance_variable_set("@__metadata", value)
       end
+      # Add etag  methods
+      klass.send :define_method, :__etag do
+        instance_variable_get("@__etag")
+      end
+      klass.send :define_method, :__etag= do |value|
+        instance_variable_set("@__etag", value)
+      end
+
       klass.send :define_method, :as_json do |*args|
         meta = RUBY_VERSION < "1.9" ? '@__metadata' : ('@__metadata'.to_sym)
 
