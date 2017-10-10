@@ -627,15 +627,17 @@ class Service
   end
 
   def single_save(operation)
+    header = {:content_type => @json_type}
     if operation.kind == "Add"
       save_uri = build_save_uri(operation)
       json_klass = operation.klass.to_json(:type => :add)
-      post_result = OData::Resource.new(save_uri, @rest_options).post json_klass, {:content_type => @json_type}
+      post_result = OData::Resource.new(save_uri, @rest_options).post json_klass, header
       return build_classes_from_result(post_result.body)
     elsif operation.kind == "Update"
-      update_uri = build_resource_uri(operation)
+      update_uri = build_update_uri(operation)
       json_klass = operation.klass.to_json
-      update_result = OData::Resource.new(update_uri, @rest_options).put json_klass, {:content_type => @json_type}
+      header["If-Match"] = operation.klass.__etag if operation.klass.respond_to?(:__etag)
+      update_result = OData::Resource.new(update_uri, @rest_options).put json_klass, header
       return (update_result.status == 204)
     elsif operation.kind == "Delete"
       delete_uri = build_resource_uri(operation)
@@ -644,7 +646,7 @@ class Service
     elsif operation.kind == "AddLink"
       save_uri = build_add_link_uri(operation)
       json_klass = operation.child_klass.to_json(:type => :link)
-      post_result = OData::Resource.new(save_uri, @rest_options).post json_klass, {:content_type => @json_type}
+      post_result = OData::Resource.new(save_uri, @rest_options).post json_klass, header
 
       # Attach the child to the parent
       link_child_to_parent(operation) if (post_result.status == 204)
