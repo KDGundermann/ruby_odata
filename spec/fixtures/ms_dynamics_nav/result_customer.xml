@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<entry xml:base="http://navapp1.office.zwick-edelstahl.de:7178/ZWICK-TEST-WEB/OData/" 
-    xmlns="http://www.w3.org/2005/Atom" 
-    xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices" 
-    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:etag="W/&quot;'28%3BEgAAAAJ7BTEAMAAwADAAMAAAAAAA8%3B791241770%3B'&quot;">
-    <id>http://navapp1.office.zwick-edelstahl.de:7178/ZWICK-TEST-WEB/OData/Customer('10000')</id>
+<entry xml:base="http://test.com/NAV-WEB/OData/"
+    xmlns="http://www.w3.org/2005/Atom"
+    xmlns:d="http://schemas.microsoft.com/ado/2007/08/dataservices"
+    xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata"
+    m:etag="W/&quot;'28%3BEgAAAAJ7BTEAMAAwADAAMAAAAAAA8%3B791241770%3B'&quot;">
+    <id>http://test.com/NAV-WEB/OData/Customer('10000')</id>
     <category term="NAV.Customer" scheme="http://schemas.microsoft.com/ado/2007/08/dataservices/scheme" />
     <link rel="edit" title="Customer" href="Customer('10000')" />
     <title />

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<m:error
+  xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+  <m:code />
+  <m:message xml:lang="en-US">Could not validate the client concurrency token required by the service. Please provide a valid token in the client request.</m:message>
+</m:error>
